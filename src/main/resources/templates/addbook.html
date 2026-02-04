@@ -7,6 +7,9 @@
     <h1>Add Book</h1>
 
     <form th:action="@{/booksave}" th:object="${book}" method="post">
+
+        <input type="hidden" th:field="*{id}" />
+        
       Author: <input type="text" th:field="*{author}" /><br /><br />
       Title: <input type="text" th:field="*{title}" /><br /><br />
       ISBN: <input type="text" th:field="*{isbn}" /><br /><br />

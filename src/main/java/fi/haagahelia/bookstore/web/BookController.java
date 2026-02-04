@@ -39,8 +39,21 @@ public class BookController {
 
     @RequestMapping(value = "/booksave", method=RequestMethod.POST)
     public String save(Book book) {
+        System.out.println(book.getId());
         bookRepository.save(book);
         return "redirect:/booklist";
+    }
+
+    @RequestMapping(value = "/edit/{id}", method=RequestMethod.GET)
+    public String editBook(@PathVariable("id") Long id, Model model) {
+        Book book = bookRepository.findById(id).orElse(null);
+
+        if(book == null) {
+            return "redirect:/booklist";
+        }
+
+        model.addAttribute("book", book);
+        return "addbook";
     }
 
     @RequestMapping(value = "/delete/{id}", method=RequestMethod.GET)
