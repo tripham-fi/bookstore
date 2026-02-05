@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import fi.haagahelia.bookstore.domain.Book;
 import fi.haagahelia.bookstore.repository.BookRepository;
+import fi.haagahelia.bookstore.repository.CategoryRepository;
 
 
 
@@ -15,9 +16,11 @@ import fi.haagahelia.bookstore.repository.BookRepository;
 public class BookController {
 
     private final BookRepository bookRepository;
+    private final CategoryRepository categoryRepository;
 
-    public BookController(BookRepository bookRepository) {
+    public BookController(BookRepository bookRepository, CategoryRepository categoryRepository) {
         this.bookRepository = bookRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     @RequestMapping(value = "/", method=RequestMethod.GET)
@@ -34,6 +37,7 @@ public class BookController {
     @RequestMapping(value = "/addbook", method=RequestMethod.GET)
     public String bookForm(Model model) {
         model.addAttribute("book", new Book());
+        model.addAttribute("categories", categoryRepository.findAll());
         return "addbook";
     }
 
@@ -53,6 +57,7 @@ public class BookController {
         }
 
         model.addAttribute("book", book);
+        model.addAttribute("categories", categoryRepository.findAll());
         return "addbook";
     }
 
