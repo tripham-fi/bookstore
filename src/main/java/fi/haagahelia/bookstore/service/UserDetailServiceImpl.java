@@ -7,7 +7,9 @@ import org.springframework.security.core.userdetails.User.UserBuilder;
 
 import fi.haagahelia.bookstore.domain.User;
 import fi.haagahelia.bookstore.repository.UserRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserDetailServiceImpl implements UserDetailsService {
 
     private final UserRepository repository;
@@ -20,6 +22,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // TODO Auto-generated method stub
+        System.out.println("Loading user: " + username);
         User user = repository.findByUsername(username);
         
         UserBuilder builder = null;
@@ -28,7 +31,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("User not found");
         } else {
             builder = org.springframework.security.core.userdetails.User.withUsername(username);
-            builder.password(user.getPasswordHash());
+            builder.password(user.getPassword());
             builder.roles(user.getRole());
         }
         
