@@ -16,7 +16,7 @@
         <th>Title</th>
         <th>ISBN</th>
         <th>Year</th>
-        <th>Action</th>
+        <th sec:authorize="hasRole('ADMIN')">Action</th>
       </tr>
 
       <tr th:each="book : ${books}">
