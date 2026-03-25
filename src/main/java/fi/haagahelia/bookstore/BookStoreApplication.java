@@ -47,10 +47,11 @@ public class BookStoreApplication {
 			Category cate2 = new Category("Historical");
 			Category cate3 = new Category("Drama");
 
-			categoryRepository.save(cate1);
-			categoryRepository.save(cate2);
-			categoryRepository.save(cate3);
-
+			if (categoryRepository.count() == 0) {
+				categoryRepository.save(cate1);
+				categoryRepository.save(cate2);
+				categoryRepository.save(cate3);
+			}
 			bookRepository.save(new Book(
 					"A Farewell to Arms",
 					"Ernest Hemingway",
